@@ -9,5 +9,4 @@ public class LifeCycleApplication {
     public static void main(String[] args) {
         SpringApplication.run(LifeCycleApplication.class, args);
     }
-
 }

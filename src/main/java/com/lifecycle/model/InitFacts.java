@@ -24,8 +24,8 @@ public class InitFacts {
 
     public List<String> run() {
         listFacts = new ArrayList<>();
-//        listFacts.add(shit());
-//        listFacts.add(heartBeats());
+        listFacts.add(shit());
+        listFacts.add(heartBeats());
         listFacts.add(heartLiter());
 
         return listFacts;
