@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
 @Controller
 public class MyController {
 
@@ -21,11 +22,11 @@ public class MyController {
     }
 
     @PostMapping("result")
-    public String result(@ModelAttribute User user, Model model){
-        User.counter ++;
+    public String result(@ModelAttribute User user, Model model) {
+        User.counter++;
         model.addAttribute("userCounter", User.getCounter());
         model.addAttribute("firstname", user.getFirstname());
-        model.addAttribute("interestingFact", userService.getUserRandomFact(user));
+        model.addAttribute("interestingFact", userService.getUserFact(user));
 
         return "result";
     }

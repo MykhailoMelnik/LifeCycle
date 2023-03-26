@@ -1,37 +1,80 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Life cycle</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f8f8;
-        }
-        h1 {
-            color: #333333;
-            text-align: center;
-        }
-        p {
-            color: #666666;
-            font-size: 18px;
-            line-height: 1.5;
-            margin: 20px 0;
-        }
-        img {
-            display: block;
-            margin: 0 auto;
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
+  <title>Life cycle</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+    }
+    h1 {
+      color: #333333;
+      text-align: center;
+    }
+    p {
+      color: #666666;
+      font-size: 18px;
+      line-height: 1.5;
+      margin: 20px 0;
+    }
+    img {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+      height: auto;
+    }
+    button {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script th:inline="javascript">
+    var factList = [[${interestingFact}]];
+    var currentFactIndex = 0;
+    var maxFactIndex = factList.length - 1;
+
+    function showFact(index) {
+      $("#fact").text(factList[index]);
+      currentFactIndex = index;
+      updateButtonState();
+    }
+
+    function showNextFact() {
+      if (currentFactIndex < maxFactIndex) {
+        showFact(currentFactIndex + 1);
+      }
+    }
+
+    function showPreviousFact() {
+      if (currentFactIndex > 0) {
+        showFact(currentFactIndex - 1);
+      }
+    }
+
+    function updateButtonState() {
+      $("#prev-button").prop("disabled", currentFactIndex === 0);
+      $("#next-button").prop("disabled", currentFactIndex === maxFactIndex);
+    }
+
+    $(function() {
+      showFact(currentFactIndex);
+      updateButtonState();
+      $("#prev-button").click(showPreviousFact);
+      $("#next-button").click(showNextFact);
+    });
+  </script>
 </head>
 <body>
-<h3 th:text="${userCounter}">first name</h3>
-
-<h1>якийсь текст</h1>
-<h1 th:text= "${firstname}">first name</h1>
-<h1 th:text="${interestingFact}">interesting fact</h1>
-
-<p>Це текст на моїй сторінці, який я написав!</p>
+<h1>Факти користувача</h1>
+<p id="fact"></p>
+<button id="prev-button">Попередній</button>
+<button id="next-button">Наступний</button>
 </body>
 </html>
